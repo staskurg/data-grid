@@ -15,4 +15,4 @@ root.render(
 );
 
 // Performance monitoring setup
-reportWebVitals(console.log);
+// reportWebVitals(console.log);
