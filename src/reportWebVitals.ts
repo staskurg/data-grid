@@ -1,15 +1,17 @@
-import { ReportHandler } from 'web-vitals';
+import { type Metric } from 'web-vitals';
 
-const reportWebVitals = (onPerfEntry?: ReportHandler) => {
+const reportWebVitals = (onPerfEntry?: (metric: Metric) => void) => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS(onPerfEntry);
-      getFID(onPerfEntry);
-      getFCP(onPerfEntry);
-      getLCP(onPerfEntry);
-      getTTFB(onPerfEntry);
-    });
+    import('web-vitals').then(
+      ({ onCLS, onFID, onFCP, onLCP, onTTFB, onINP }) => {
+        onCLS(onPerfEntry); // Cumulative Layout Shift
+        onFID(onPerfEntry); // First Input Delay
+        onFCP(onPerfEntry); // First Contentful Paint
+        onLCP(onPerfEntry); // Largest Contentful Paint
+        onTTFB(onPerfEntry); // Time to First Byte
+        onINP(onPerfEntry); // Interaction to Next Paint
+      }
+    );
   }
 };
-
 export default reportWebVitals;
