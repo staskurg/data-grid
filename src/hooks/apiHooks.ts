@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { TableSchema, User, Row } from '../../shared/types';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api/v1';
 
 const QUERY_KEYS = {
   tableData: (id: string) => ['tableData', id] as const,
