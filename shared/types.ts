@@ -1,5 +1,7 @@
 export type ColumnType = 'text' | 'number' | 'link' | 'user' | 'tag';
 
+export type CellValue = string | number | Link | User[] | null | undefined;
+
 export type User = {
   id: string;
   email: string;
@@ -19,7 +21,7 @@ export interface Column {
 }
 
 export interface Row {
-  [key: string]: any; // Generic to accommodate all column data types
+  [key: string]: CellValue;
 
   ID?: Link;
   Plasmid?: string;

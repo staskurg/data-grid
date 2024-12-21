@@ -1,14 +1,19 @@
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { useMemo } from 'react';
-import { Column, Row, User, Link, ColumnType } from '../../../shared/types';
+import {
+  Column,
+  Row,
+  User,
+  Link,
+  ColumnType,
+  CellValue,
+} from '../../../shared/types';
 
 interface TableProps {
   columns: Column[];
   rows: Row[];
   onRowsChange: (newRows: Row[]) => void;
 }
-
-type CellValue = string | number | Link | User[] | null;
 
 const renderCell = (type: ColumnType, value: CellValue) => {
   switch (type) {
