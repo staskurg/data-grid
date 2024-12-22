@@ -1,64 +1,54 @@
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { useMemo } from 'react';
-import { Column, Row, User, Link, ColumnType } from '../../../shared/types';
+import {
+  LinkCell,
+  UserCell,
+  NumberCell,
+  TagCell,
+  TextCell,
+} from './CellRenderers';
+import { COLUMN_TYPES } from '../../utils/constants';
 
-interface TableProps {
+import type {
+  Column,
+  Row,
+  User,
+  Link,
+  ColumnType,
+  CellValue,
+} from '../../../shared/types';
+
+type TableProps = {
   columns: Column[];
   rows: Row[];
   onRowsChange: (newRows: Row[]) => void;
-}
-
-type CellValue = string | number | Link | User[] | null;
+};
 
 const renderCell = (type: ColumnType, value: CellValue) => {
   switch (type) {
-    case 'link':
-      return value ? (
-        <a href={(value as Link).url} target="_blank" rel="noopener noreferrer">
-          {(value as Link).value}
-        </a>
-      ) : null;
+    case COLUMN_TYPES.LINK:
+      return <LinkCell value={value as Link} />;
 
-    case 'user':
-      return (value as User[])?.map(user => (
-        <div key={user.id} style={{ display: 'flex', gap: '4px' }}>
-          <img
-            src={user.avatarUrl}
-            alt={user.email}
-            style={{ width: 24, height: 24, borderRadius: '50%' }}
-          />
-          <span>{user.email}</span>
-        </div>
-      ));
+    case COLUMN_TYPES.USER:
+      return <UserCell value={value as User[]} />;
 
-    case 'number':
-      return <span>{value as number}</span>;
+    case COLUMN_TYPES.NUMBER:
+      return <NumberCell value={value as number} />;
 
-    case 'tag':
-      return (
-        <span
-          style={{
-            padding: '2px 8px',
-            borderRadius: '4px',
-            backgroundColor: '#e0e0e0',
-          }}
-        >
-          {value as string}
-        </span>
-      );
+    case COLUMN_TYPES.TAG:
+      return <TagCell value={value as string} />;
 
     default:
-      return <span>{value as string}</span>;
+      return <TextCell value={value as string} />;
   }
 };
 
-const Table = ({ columns, rows, onRowsChange }: TableProps) => {
+const Table = ({ columns, rows }: TableProps) => {
   const tableColumns = useMemo<MRT_ColumnDef<Row>[]>(
     () =>
       columns.map(col => ({
         accessorKey: col.accessorKey,
         header: col.label,
-        enableEditing: col.editable,
         Cell: ({ cell }) => renderCell(col.type, cell.getValue() as CellValue),
       })),
     [columns]
@@ -68,18 +58,11 @@ const Table = ({ columns, rows, onRowsChange }: TableProps) => {
     <MaterialReactTable
       columns={tableColumns}
       data={rows}
-      enableEditing
       enableRowSelection
       enableColumnResizing
       enableSorting
       muiTableContainerProps={{
         sx: { maxHeight: '100%' },
-      }}
-      onEditingRowSave={({ row, values }) => {
-        const updatedRows = rows.map((oldRow, index) =>
-          index === row.index ? values : oldRow
-        );
-        onRowsChange(updatedRows);
       }}
     />
   );
