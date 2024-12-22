@@ -3,45 +3,75 @@ import { User, TableSchema } from './types';
 export const mockUsers: User[] = [
   {
     id: '1',
-    email: 'kwilliams@deeporigin.com',
-    avatarUrl: '/avatars/kwilliams.png',
+    name: 'Emma Mitchell',
+    email: 'emma.mitchell@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
   },
-  { id: '2', email: 'glima@deeporigin.com', avatarUrl: '/avatars/glima.png' },
+  {
+    id: '2',
+    name: 'James Wilson',
+    email: 'james.wilson@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+  },
   {
     id: '3',
-    email: 'srinivas.shandilya@deeporigin.com',
-    avatarUrl: '/avatars/srinivas.png',
+    name: 'Sophia Anderson',
+    email: 'sophia.anderson@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
   },
   {
     id: '4',
-    email: 'akash.guru@deeporigin.com',
-    avatarUrl: '/avatars/akash.png',
+    name: 'Lucas Thomas',
+    email: 'lucas.thomas@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/men/2.jpg',
   },
-  { id: '5', email: 'jdoe@deeporigin.com', avatarUrl: '/avatars/jdoe.png' },
-  { id: '6', email: 'rsmith@deeporigin.com', avatarUrl: '/avatars/rsmith.png' },
-  { id: '7', email: 'mbrown@deeporigin.com', avatarUrl: '/avatars/mbrown.png' },
+  {
+    id: '5',
+    name: 'Olivia Garcia',
+    email: 'olivia.garcia@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/women/3.jpg',
+  },
+  {
+    id: '6',
+    name: 'Benjamin Taylor',
+    email: 'benjamin.taylor@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
+  },
+  {
+    id: '7',
+    name: 'Ava Martinez',
+    email: 'ava.martinez@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/women/4.jpg',
+  },
   {
     id: '8',
-    email: 'tnguyen@deeporigin.com',
-    avatarUrl: '/avatars/tnguyen.png',
+    name: 'William Johnson',
+    email: 'william.johnson@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/men/4.jpg',
   },
-  { id: '9', email: 'lclark@deeporigin.com', avatarUrl: '/avatars/lclark.png' },
+  {
+    id: '9',
+    name: 'Mia Robinson',
+    email: 'mia.robinson@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/women/5.jpg',
+  },
   {
     id: '10',
-    email: 'kperez@deeporigin.com',
-    avatarUrl: '/avatars/kperez.png',
+    name: 'Henry Thompson',
+    email: 'henry.thompson@email.com',
+    avatarUrl: 'https://randomuser.me/api/portraits/men/5.jpg',
   },
 ];
 
 export const table1: TableSchema = {
   columns: [
     { accessorKey: 'ID', type: 'link', label: 'ID', editable: false },
-    { accessorKey: 'Plasmid', type: 'text', label: 'Plasmid', editable: true },
+    { accessorKey: 'Plasmid', type: 'tag', label: 'Plasmid', editable: false },
     {
       accessorKey: 'VolumeUI',
       type: 'number',
       label: 'Volume (µL)',
-      editable: true,
+      editable: false,
     },
     {
       accessorKey: 'LengthBP',
@@ -69,13 +99,7 @@ export const table1: TableSchema = {
       VolumeUI: 50,
       LengthBP: 14873,
       StorageLocation: 'Freezer 2 Box A1',
-      EditedBy: [
-        {
-          id: '1',
-          email: 'kwilliams@deeporigin.com',
-          avatarUrl: '/avatars/kwilliams.png',
-        },
-      ],
+      EditedBy: [mockUsers[0]],
     },
     {
       ID: { url: '/2', value: 'inv-GT-plasmid-2' },
@@ -83,13 +107,7 @@ export const table1: TableSchema = {
       VolumeUI: 30,
       LengthBP: 10704,
       StorageLocation: 'Freezer 2 Box A2',
-      EditedBy: [
-        {
-          id: '2',
-          email: 'glima@deeporigin.com',
-          avatarUrl: '/avatars/glima.png',
-        },
-      ],
+      EditedBy: [mockUsers[0]],
     },
     {
       ID: { url: '/3', value: 'inv-GT-plasmid-3' },
@@ -97,13 +115,7 @@ export const table1: TableSchema = {
       VolumeUI: 40,
       LengthBP: 5820,
       StorageLocation: 'Freezer 2 Box A2',
-      EditedBy: [
-        {
-          id: '3',
-          email: 'srinivas.shandilya@deeporigin.com',
-          avatarUrl: '/avatars/srinivas.png',
-        },
-      ],
+      EditedBy: [mockUsers[0]],
     },
     {
       ID: { url: '/4', value: 'inv-GT-plasmid-4' },
@@ -111,13 +123,7 @@ export const table1: TableSchema = {
       VolumeUI: 25,
       LengthBP: 11875,
       StorageLocation: 'Freezer 2 Box B1',
-      EditedBy: [
-        {
-          id: '4',
-          email: 'akash.guru@deeporigin.com',
-          avatarUrl: '/avatars/akash.png',
-        },
-      ],
+      EditedBy: [mockUsers[2]],
     },
     {
       ID: { url: '/5', value: 'inv-GT-plasmid-5' },
@@ -125,13 +131,7 @@ export const table1: TableSchema = {
       VolumeUI: 35,
       LengthBP: 11679,
       StorageLocation: 'Freezer 2 Box A2',
-      EditedBy: [
-        {
-          id: '5',
-          email: 'jdoe@deeporigin.com',
-          avatarUrl: '/avatars/jdoe.png',
-        },
-      ],
+      EditedBy: [],
     },
     {
       ID: { url: '/6', value: 'inv-GT-plasmid-6' },
@@ -139,13 +139,7 @@ export const table1: TableSchema = {
       VolumeUI: 45,
       LengthBP: 4180,
       StorageLocation: 'Freezer 2 Box A1',
-      EditedBy: [
-        {
-          id: '6',
-          email: 'rsmith@deeporigin.com',
-          avatarUrl: '/avatars/rsmith.png',
-        },
-      ],
+      EditedBy: [],
     },
     {
       ID: { url: '/7', value: 'inv-GT-plasmid-7' },
@@ -153,13 +147,7 @@ export const table1: TableSchema = {
       VolumeUI: 30,
       LengthBP: 14873,
       StorageLocation: 'Freezer 2 Box B1',
-      EditedBy: [
-        {
-          id: '7',
-          email: 'mbrown@deeporigin.com',
-          avatarUrl: '/avatars/mbrown.png',
-        },
-      ],
+      EditedBy: [],
     },
     {
       ID: { url: '/8', value: 'inv-GT-plasmid-8' },
@@ -167,13 +155,7 @@ export const table1: TableSchema = {
       VolumeUI: 40,
       LengthBP: 15420,
       StorageLocation: 'Freezer 2 Box A3',
-      EditedBy: [
-        {
-          id: '8',
-          email: 'tnguyen@deeporigin.com',
-          avatarUrl: '/avatars/tnguyen.png',
-        },
-      ],
+      EditedBy: [],
     },
     {
       ID: { url: '/9', value: 'inv-GT-plasmid-9' },
@@ -181,13 +163,7 @@ export const table1: TableSchema = {
       VolumeUI: 20,
       LengthBP: 8890,
       StorageLocation: 'Freezer 2 Box A1',
-      EditedBy: [
-        {
-          id: '9',
-          email: 'lclark@deeporigin.com',
-          avatarUrl: '/avatars/lclark.png',
-        },
-      ],
+      EditedBy: [],
     },
     {
       ID: { url: '/10', value: 'inv-GT-plasmid-10' },
@@ -195,22 +171,16 @@ export const table1: TableSchema = {
       VolumeUI: 50,
       LengthBP: 9027,
       StorageLocation: 'Freezer 2 Box A3',
-      EditedBy: [
-        {
-          id: '10',
-          email: 'kperez@deeporigin.com',
-          avatarUrl: '/avatars/kperez.png',
-        },
-      ],
+      EditedBy: [],
     },
   ],
 };
 
 export const table2: TableSchema = {
   columns: [
-    { accessorKey: 'ID', type: 'link', label: 'ID', editable: false }, // Updated to 'link' type
-    { accessorKey: 'Summary', type: 'text', label: 'Summary', editable: true },
-    { accessorKey: 'Status', type: 'tag', label: 'Status', editable: true },
+    { accessorKey: 'ID', type: 'link', label: 'ID', editable: false },
+    { accessorKey: 'Summary', type: 'text', label: 'Summary', editable: false },
+    { accessorKey: 'Status', type: 'tag', label: 'Status', editable: false },
     {
       accessorKey: 'Assignee',
       type: 'user',
@@ -223,131 +193,61 @@ export const table2: TableSchema = {
       ID: { url: '/tasks/KT-1', value: 'KT-1' },
       Summary: 'Add pka formula',
       Status: 'todo',
-      Assignee: [
-        {
-          id: '1',
-          email: 'kwilliams@deeporigin.com',
-          avatarUrl: '/avatars/kwilliams.png',
-        },
-      ],
+      Assignee: [mockUsers[0]],
     },
     {
       ID: { url: '/tasks/KT-2', value: 'KT-2' },
       Summary: 'Select option ordering',
       Status: 'todo',
-      Assignee: [
-        {
-          id: '2',
-          email: 'glima@deeporigin.com',
-          avatarUrl: '/avatars/glima.png',
-        },
-      ],
+      Assignee: [mockUsers[1]],
     },
     {
       ID: { url: '/tasks/KT-3', value: 'KT-3' },
       Summary: 'Database filtering v2',
       Status: 'in-progress',
-      Assignee: [
-        {
-          id: '1',
-          email: 'kwilliams@deeporigin.com',
-          avatarUrl: '/avatars/kwilliams.png',
-        },
-        {
-          id: '2',
-          email: 'glima@deeporigin.com',
-          avatarUrl: '/avatars/glima.png',
-        },
-      ],
+      Assignee: [mockUsers[0], mockUsers[1]],
     },
     {
       ID: { url: '/tasks/KT-4', value: 'KT-4' },
       Summary: 'Colored labels for select',
       Status: 'todo',
-      Assignee: [
-        {
-          id: '3',
-          email: 'srinivas.shandilya@deeporigin.com',
-          avatarUrl: '/avatars/srinivas.png',
-        },
-      ],
+      Assignee: [mockUsers[2]],
     },
     {
       ID: { url: '/tasks/KT-5', value: 'KT-5' },
       Summary: 'Default values for select columns',
       Status: 'todo',
-      Assignee: [
-        {
-          id: '4',
-          email: 'akash.guru@deeporigin.com',
-          avatarUrl: '/avatars/akash.png',
-        },
-      ],
+      Assignee: [mockUsers[2], mockUsers[3], mockUsers[4]],
     },
     {
       ID: { url: '/tasks/KT-6', value: 'KT-6' },
       Summary: 'Improve UI responsiveness',
       Status: 'in-progress',
-      Assignee: [
-        {
-          id: '5',
-          email: 'jdoe@deeporigin.com',
-          avatarUrl: '/avatars/jdoe.png',
-        },
-      ],
+      Assignee: [mockUsers[3]],
     },
     {
       ID: { url: '/tasks/KT-7', value: 'KT-7' },
       Summary: 'Update dependencies',
       Status: 'completed',
-      Assignee: [
-        {
-          id: '6',
-          email: 'rsmith@deeporigin.com',
-          avatarUrl: '/avatars/rsmith.png',
-        },
-      ],
+      Assignee: [mockUsers[6]],
     },
     {
       ID: { url: '/tasks/KT-8', value: 'KT-8' },
       Summary: 'Refactor authentication flow',
       Status: 'todo',
-      Assignee: [
-        {
-          id: '7',
-          email: 'mbrown@deeporigin.com',
-          avatarUrl: '/avatars/mbrown.png',
-        },
-      ],
+      Assignee: [mockUsers[7]],
     },
     {
       ID: { url: '/tasks/KT-9', value: 'KT-9' },
       Summary: 'Optimize database queries',
       Status: 'in-progress',
-      Assignee: [
-        {
-          id: '8',
-          email: 'tnguyen@deeporigin.com',
-          avatarUrl: '/avatars/tnguyen.png',
-        },
-        {
-          id: '9',
-          email: 'lclark@deeporigin.com',
-          avatarUrl: '/avatars/lclark.png',
-        },
-      ],
+      Assignee: [],
     },
     {
       ID: { url: '/tasks/KT-10', value: 'KT-10' },
       Summary: 'Test API error handling',
       Status: 'todo',
-      Assignee: [
-        {
-          id: '10',
-          email: 'kperez@deeporigin.com',
-          avatarUrl: '/avatars/kperez.png',
-        },
-      ],
+      Assignee: [],
     },
   ],
 };
