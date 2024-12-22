@@ -180,7 +180,7 @@ export const table2: TableSchema = {
   columns: [
     { accessorKey: 'ID', type: 'link', label: 'ID', editable: false },
     { accessorKey: 'Summary', type: 'text', label: 'Summary', editable: false },
-    { accessorKey: 'Status', type: 'tag', label: 'Status', editable: false },
+    { accessorKey: 'Status', type: 'text', label: 'Status', editable: false },
     {
       accessorKey: 'Assignee',
       type: 'user',
