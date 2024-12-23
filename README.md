@@ -120,7 +120,7 @@ A flexible and performant data grid component built with React, TypeScript, and 
   - `src/pages/`: Contains the main pages of the application.
   - `src/services/`: Contains the API service.
 
-- `api/`: Container serverless functions.
+- `api/`: Contains serverless functions.
 
 - `shared/`: Shared types and mock data.
 
