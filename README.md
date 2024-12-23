@@ -1,46 +1,129 @@
-# Getting Started with Create React App
+# Data Grid Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A flexible and performant data grid component built with React, TypeScript, and Material UI.
 
-## Available Scripts
+## Architecture Decisions
 
-In the project directory, you can run:
+### Frontend Architecture
+
+- **Component-Based Structure**: Pluggable component architecture for maximum reusability
+- **State Management**: React Query for server state management, providing built-in caching and data synchronization
+- **UI Framework**: Material UI with Material React Table v3 for consistent design and rich functionality
+- **Type Safety**: TypeScript for enhanced developer experience and code reliability
+- **API Layer**: Serverless functions via Vercel for backend functionality
+
+### Key Technical Choices
+
+1. **Material React Table v3**
+
+   - Built on TanStack Table V8
+   - Native TypeScript support
+   - Built-in virtualization for handling large datasets
+   - CRUD support and rich functionality
+   - Efficient memoization
+
+2. **React Query**
+   - Built-in caching and state management
+   - Simplified data fetching
+   - Automatic background refetching
+   - Server state synchronization
+
+## Running Locally
+
+1. Install dependencies:
+
+### `yarn install`
+
+2. Start the development server:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. For local API development, install Vercel CLI and run:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `vercel dev`
 
-### `yarn test`
+## Assumptions Made
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Data Structure
 
-### `yarn build`
+   - Predefined column types: link, user, number, tag
+   - Fixed schema for user data and table structure
+   - Consistent data format across all table instances
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. User Interface
+   - Material UI design language is suitable for all use cases
+   - Table functionality prioritizes performance over customization
+   - Tooltip-based overflow handling for dense data
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Known Limitations
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Performance
 
-### `yarn eject`
+   - Limited to client-side sorting and filtering
+   - No server-side pagination implementation
+   - Memory constraints with very large datasets
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Features
+   - Mock API limitations for demonstration purposes
+   - Limited column type customization
+   - Basic CRUD operations only
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Future Improvements
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Technical Enhancements
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+   - Implement server-side pagination
+   - Add real-time updates via WebSocket
+   - Enhance caching strategies
+   - Add comprehensive test coverage
 
-## Learn More
+2. Feature Additions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   - Custom column type support
+   - Advanced filtering and search capabilities
+   - Export functionality
+   - Bulk operations support
+   - Customizable theming system
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Developer Experience
+   - Add Storybook documentation
+   - Improve API documentation
+   - Add more usage examples
+   - Create component playground
+
+## Tech Stack
+
+- React
+- TypeScript
+- Material UI
+- Material React Table v3
+- React Query
+- Vercel (Deployment & Serverless Functions)
+
+## Project Structure
+
+- `src/`: Contains the frontend source code.
+- `src/components/`: Contains the React components.
+- `src/hooks/`: Contains custom React hooks.
+- `src/pages/`: Contains the main pages of the application.
+- `src/services/`: Contains the API service.
+
+- `api/`: Container serverless functions.
+
+- `shared/`: Shared types and mock data.
+
+## Live Demo
+
+Experience the component in action:
+
+- **Main Application**: [https://data-grid-steel.vercel.app](https://data-grid-steel.vercel.app)
+
+The demo displays the Development Tasks Board by default. Currently, tables can be switched by modifying the table ID in `homepage.tsx`:
+
+```typescript:src/pages/homepage.tsx
+// For Development Tasks Board
+const { data: tableData } = useTableData('table2');
+
+// For Laboratory Plasmids Inventory
+const { data: tableData } = useTableData('table1');
+```
