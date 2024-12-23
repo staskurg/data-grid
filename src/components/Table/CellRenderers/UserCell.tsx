@@ -1,4 +1,3 @@
-import { Box, Typography } from '@mui/material';
 import { User } from '../../../../shared/types';
 
 import UserElement from '../../../ui/UserElement';
@@ -14,15 +13,6 @@ const UserCell = ({ value = [], columnWidth = 0 }: UserCellProps) => (
     items={value}
     columnWidth={columnWidth}
     renderItem={(user, ref) => <UserElement user={user} ref={ref} />}
-    renderTooltipContent={hiddenUsers => (
-      <Box>
-        {hiddenUsers.map(user => (
-          <Typography key={user.id} variant="body2">
-            {user.name}
-          </Typography>
-        ))}
-      </Box>
-    )}
   />
 );
 
