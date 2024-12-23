@@ -74,22 +74,33 @@ A flexible and performant data grid component built with React, TypeScript, and 
 
    - Implement server-side pagination
    - Add real-time updates via WebSocket
-   - Enhance caching strategies
    - Add comprehensive test coverage
+   - Implement column-specific data fetching
+     - Allow developers to specify required columns in API requests
+     - Reduce payload size by fetching only needed data
+     - Support dynamic column selection based on use case
+     - Enable efficient data loading for different table views
+   - Optimize large dataset performance
+     - Implement row and column virtualization
+     - Enable efficient rendering for 10,000+ rows
+     - Support horizontal virtualization for many columns
+     - Dynamic viewport calculations for smooth scrolling
 
 2. Feature Additions
 
-   - Custom column type support
+   - Custom cell editor components (not completed due to time limit)
+     - Autocomplete-style user picker with multi-select
+     - Real-time user search and filtering
+     - Profile picture and user info display
+     - Loading states and error handling
    - Advanced filtering and search capabilities
-   - Export functionality
-   - Bulk operations support
    - Customizable theming system
 
 3. Developer Experience
+
    - Add Storybook documentation
    - Improve API documentation
    - Add more usage examples
-   - Create component playground
 
 ## Tech Stack
 
@@ -103,10 +114,11 @@ A flexible and performant data grid component built with React, TypeScript, and 
 ## Project Structure
 
 - `src/`: Contains the frontend source code.
-- `src/components/`: Contains the React components.
-- `src/hooks/`: Contains custom React hooks.
-- `src/pages/`: Contains the main pages of the application.
-- `src/services/`: Contains the API service.
+
+  - `src/components/`: Contains the React components.
+  - `src/hooks/`: Contains custom React hooks.
+  - `src/pages/`: Contains the main pages of the application.
+  - `src/services/`: Contains the API service.
 
 - `api/`: Container serverless functions.
 
