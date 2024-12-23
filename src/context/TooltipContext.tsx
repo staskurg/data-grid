@@ -1,4 +1,11 @@
-import { createContext, useContext, useState } from 'react';
+import {
+  createContext,
+  memo,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import { Tooltip } from '@mui/material';
 import type { ReactNode } from 'react';
 
@@ -14,61 +21,89 @@ type TooltipContextType = {
 
 const TooltipContext = createContext<TooltipContextType | null>(null);
 
-export const TooltipProvider = ({ children }: { children: ReactNode }) => {
+const MemoizedTooltip = memo(
+  ({
+    content,
+    anchorEl,
+    onClose,
+  }: {
+    content: ReactNode;
+    anchorEl: HTMLElement;
+    onClose: () => void;
+  }) => {
+    const getPosition = (el: HTMLElement) => ({
+      left: el.getBoundingClientRect().left + el.offsetWidth / 2,
+      top: el.getBoundingClientRect().top,
+    });
+
+    return (
+      <Tooltip
+        open={true}
+        arrow
+        placement="top"
+        title={content}
+        onClose={onClose}
+        slotProps={{
+          tooltip: {
+            sx: {
+              bgcolor: 'common.white',
+              color: 'text.secondary',
+              boxShadow: 2,
+            },
+          },
+          arrow: {
+            sx: {
+              color: 'common.white',
+            },
+          },
+        }}
+      >
+        <span
+          style={{
+            position: 'fixed',
+            ...getPosition(anchorEl),
+          }}
+        />
+      </Tooltip>
+    );
+  }
+);
+
+export const TooltipProvider = memo(({ children }: { children: ReactNode }) => {
   const [tooltipState, setTooltipState] = useState<TooltipState>({
     content: null,
     anchorEl: null,
   });
-  console.log(tooltipState);
 
-  const showTooltip = (content: ReactNode, anchorEl: HTMLElement) => {
-    setTooltipState({ content, anchorEl });
-  };
+  const showTooltip = useCallback(
+    (content: ReactNode, anchorEl: HTMLElement) => {
+      setTooltipState({ content, anchorEl });
+    },
+    []
+  );
 
-  const hideTooltip = () => {
+  const hideTooltip = useCallback(() => {
     setTooltipState({ content: null, anchorEl: null });
-  };
+  }, []);
 
-  const getPosition = (anchorEl: HTMLElement) => ({
-    left: anchorEl.getBoundingClientRect().left + anchorEl.offsetWidth / 2,
-    top: anchorEl.getBoundingClientRect().top,
-  });
+  const contextValue = useMemo(
+    () => ({ showTooltip, hideTooltip }),
+    [showTooltip, hideTooltip]
+  );
 
   return (
-    <TooltipContext.Provider value={{ showTooltip, hideTooltip }}>
+    <TooltipContext.Provider value={contextValue}>
       {children}
       {tooltipState.content && tooltipState.anchorEl && (
-        <Tooltip
-          open={true}
-          arrow
-          placement="top"
-          title={tooltipState.content}
+        <MemoizedTooltip
+          content={tooltipState.content}
+          anchorEl={tooltipState.anchorEl}
           onClose={hideTooltip}
-          slotProps={{
-            tooltip: {
-              sx: {
-                bgcolor: 'common.white',
-                color: 'text.secondary',
-              },
-            },
-            arrow: {
-              sx: {
-                color: 'common.white',
-              },
-            },
-          }}
-        >
-          <span
-            style={{
-              position: 'fixed',
-              ...getPosition(tooltipState.anchorEl),
-            }}
-          />
-        </Tooltip>
+        />
       )}
     </TooltipContext.Provider>
   );
-};
+});
 
 export const useTooltip = () => {
   const context = useContext(TooltipContext);

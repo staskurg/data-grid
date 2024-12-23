@@ -1,4 +1,4 @@
-import { useRef, useMemo, Fragment } from 'react';
+import { useRef, useMemo, Fragment, memo, useCallback } from 'react';
 import { Box, Chip } from '@mui/material';
 import { useTooltip } from '../../context/TooltipContext';
 import { useOverflowWidth } from '../../hooks/useOverflowWidth';
@@ -18,13 +18,15 @@ const OverflowContainer = <T extends { id: string | number }>({
 }: OverflowContainerProps<T>) => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const memoizedItems = useMemo(() => items, [items]);
-
   const chipRef = useRef<HTMLDivElement>(null);
   const { showTooltip, hideTooltip } = useTooltip();
 
   const visibleCount = useOverflowWidth(columnWidth, itemRefs, items.length);
   const remainingCount = items.length - visibleCount;
-  const visibleItems = memoizedItems.slice(0, visibleCount);
+  const visibleItems = useMemo(
+    () => memoizedItems.slice(0, visibleCount),
+    [memoizedItems, visibleCount]
+  );
 
   const renderItems = (itemsToRender: T[]) =>
     itemsToRender.map(item => (
@@ -35,20 +37,25 @@ const OverflowContainer = <T extends { id: string | number }>({
       </Fragment>
     ));
 
-  const handleMouseEnter = (hiddenItems: T[]) => {
-    if (hiddenItems.length && chipRef.current) {
-      showTooltip(
-        <Box display="flex" flexDirection="column" gap={1}>
-          {renderItems(hiddenItems)}
-        </Box>,
-        chipRef.current
-      );
-    }
-  };
+  const handleMouseEnter = useCallback(
+    (hiddenItems: T[]) => {
+      if (hiddenItems.length && chipRef.current) {
+        showTooltip(
+          <Box display="flex" flexDirection="column" gap={1}>
+            {hiddenItems.map(item => (
+              <Fragment key={item.id}>{renderItem(item, () => {})}</Fragment>
+            ))}
+          </Box>,
+          chipRef.current
+        );
+      }
+    },
+    [renderItem, showTooltip]
+  );
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     hideTooltip();
-  };
+  }, [hideTooltip]);
 
   return (
     <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
@@ -71,4 +78,5 @@ const OverflowContainer = <T extends { id: string | number }>({
   );
 };
 
-export default OverflowContainer;
+OverflowContainer.displayName = 'OverflowContainer';
+export default memo(OverflowContainer) as typeof OverflowContainer;

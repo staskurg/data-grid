@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import { User } from '../../../../shared/types';
 
 import UserElement from '../../../ui/UserElement';
@@ -8,12 +9,22 @@ type UserCellProps = {
   columnWidth?: number;
 };
 
-const UserCell = ({ value = [], columnWidth = 0 }: UserCellProps) => (
-  <OverflowContainer
-    items={value}
-    columnWidth={columnWidth}
-    renderItem={(user, ref) => <UserElement user={user} ref={ref} />}
-  />
-);
+const UserCell = ({ value = [], columnWidth = 0 }: UserCellProps) => {
+  const renderItem = useCallback(
+    (user: User, ref: (el: HTMLDivElement | null) => void) => (
+      <UserElement user={user} ref={ref} />
+    ),
+    []
+  );
 
-export default UserCell;
+  return (
+    <OverflowContainer
+      items={value}
+      columnWidth={columnWidth}
+      renderItem={renderItem}
+    />
+  );
+};
+
+UserCell.displayName = 'UserCell';
+export default memo(UserCell);
