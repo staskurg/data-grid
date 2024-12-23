@@ -1,5 +1,5 @@
-import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { useMemo } from 'react';
+import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import {
   LinkCell,
   UserCell,
@@ -24,13 +24,17 @@ type TableProps = {
   onRowsChange: (newRows: Row[]) => void;
 };
 
-const renderCell = (type: ColumnType, value: CellValue) => {
+const renderCell = (
+  type: ColumnType,
+  value: CellValue,
+  columnWidth?: number
+) => {
   switch (type) {
     case COLUMN_TYPES.LINK:
       return <LinkCell value={value as Link} />;
 
     case COLUMN_TYPES.USER:
-      return <UserCell value={value as User[]} />;
+      return <UserCell value={value as User[]} columnWidth={columnWidth} />;
 
     case COLUMN_TYPES.NUMBER:
       return <NumberCell value={value as number} />;
@@ -49,7 +53,13 @@ const Table = ({ columns, rows }: TableProps) => {
       columns.map(col => ({
         accessorKey: col.accessorKey,
         header: col.label,
-        Cell: ({ cell }) => renderCell(col.type, cell.getValue() as CellValue),
+        Cell: ({ column, cell }) => {
+          return renderCell(
+            col.type,
+            cell.getValue() as CellValue,
+            column.getSize()
+          );
+        },
       })),
     [columns]
   );
@@ -67,5 +77,4 @@ const Table = ({ columns, rows }: TableProps) => {
     />
   );
 };
-
 export default Table;

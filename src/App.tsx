@@ -1,7 +1,12 @@
+import { TooltipProvider } from './context/TooltipContext';
 import Homepage from './pages/Homepage';
 
 const App = () => {
-  return <Homepage />;
+  return (
+    <TooltipProvider>
+      <Homepage />
+    </TooltipProvider>
+  );
 };
 
 export default App;

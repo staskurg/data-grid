@@ -1,11 +1,11 @@
 import { Box, Container } from '@mui/material';
 import { useTableData, useUpdateTableData } from '../hooks/apiHooks';
-import Table from '../components/Table/Table';
+import { Table } from '../components/Table';
 import { Row } from '../../shared/types';
 
 const Homepage = () => {
-  const { data: tableData, isLoading, error } = useTableData('table1');
-  const { mutate: updateRows } = useUpdateTableData('table1');
+  const { data: tableData, isLoading, error } = useTableData('table2');
+  const { mutate: updateRows } = useUpdateTableData('table2');
 
   const handleRowsChange = (newRows: Row[]) => {
     updateRows(newRows);
