@@ -1,5 +1,5 @@
-import { User, Row, TableSchema } from '../../shared/types';
-import { mockUsers, table1, table2 } from '../../shared/mocks';
+import { User, Row, TableSchema } from './types';
+import { mockUsers, table1, table2 } from './mocks';
 
 export const getUsers = (): User[] => mockUsers;
 

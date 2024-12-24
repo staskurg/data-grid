@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { TableSchema, User, Row } from '../../shared/types';
+import { TableSchema, User, Row } from '../utils/types';
 
 const API_BASE_URL = '/api/v1';
 

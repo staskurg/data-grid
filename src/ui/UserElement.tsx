@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
-import { User } from '../../shared/types';
+import { User } from '../utils/types';
 import { getColorFromEmail } from '../utils/getColorFromEmail';
 
 const UserElement = React.forwardRef<HTMLDivElement, { user: User }>(

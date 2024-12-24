@@ -102,6 +102,17 @@ A flexible and performant data grid component built with React, TypeScript, and 
    - Improve API documentation
    - Add more usage examples
 
+4. Architecture Improvements
+
+- Migrate to Yarn Workspaces monorepo structure
+  - Organize into frontend, API, and shared packages
+  - Enable unified dependency management
+  - Implement clean cross-package imports
+  - Improve code organization and maintainability
+  - Simplify development workflow
+  - Support package-level versioning
+  - Leverage native Vercel monorepo deployment
+
 ## Tech Stack
 
 - React
