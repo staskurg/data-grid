@@ -1,0 +1,327 @@
+{
+  "tables": [
+    {
+      "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+      "columns": [
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0901",
+          "accessorKey": "displayId",
+          "type": "link",
+          "label": "ID",
+          "editable": false,
+          "order": 0
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0902",
+          "accessorKey": "plasmid",
+          "type": "tag",
+          "label": "Plasmid",
+          "editable": false,
+          "order": 1
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0903",
+          "accessorKey": "volumeUI",
+          "type": "number",
+          "label": "Volume (µL)",
+          "editable": false,
+          "order": 2
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0904",
+          "accessorKey": "lengthBP",
+          "type": "number",
+          "label": "Length (bp)",
+          "editable": false,
+          "order": 3
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0905",
+          "accessorKey": "storageLocation",
+          "type": "text",
+          "label": "Storage Location",
+          "editable": false,
+          "order": 4
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0906",
+          "accessorKey": "editedBy",
+          "type": "user",
+          "label": "Edited By",
+          "editable": true,
+          "order": 5
+        }
+      ],
+      "rows": [
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0801",
+          "displayId": { "url": "/1", "value": "inv-GT-plasmid-1" },
+          "plasmid": "GT-plasmids-1: lentiCRISPR v2",
+          "volumeUI": 50,
+          "lengthBP": 14873,
+          "storageLocation": "Freezer 2 Box A1",
+          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0802",
+          "displayId": { "url": "/2", "value": "inv-GT-plasmid-2" },
+          "plasmid": "GT-plasmids-2: psPAX2",
+          "volumeUI": 30,
+          "lengthBP": 10704,
+          "storageLocation": "Freezer 2 Box A2",
+          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0803",
+          "displayId": { "url": "/3", "value": "inv-GT-plasmid-3" },
+          "plasmid": "GT-plasmids-3: pMD2.G",
+          "volumeUI": 40,
+          "lengthBP": 5820,
+          "storageLocation": "Freezer 2 Box A2",
+          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0804",
+          "displayId": { "url": "/4", "value": "inv-GT-plasmid-4" },
+          "plasmid": "GT-plasmids-4: CRISPRoff-v2.1",
+          "volumeUI": 25,
+          "lengthBP": 11875,
+          "storageLocation": "Freezer 2 Box B1",
+          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0803"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0805",
+          "displayId": { "url": "/5", "value": "inv-GT-plasmid-5" },
+          "plasmid": "GT-plasmids-5: TETv4",
+          "volumeUI": 35,
+          "lengthBP": 11679,
+          "storageLocation": "Freezer 2 Box A2",
+          "editedBy": []
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0806",
+          "displayId": { "url": "/6", "value": "inv-GT-plasmid-6" },
+          "plasmid": "GT-plasmids-6: pRSV-Rev",
+          "volumeUI": 45,
+          "lengthBP": 4180,
+          "storageLocation": "Freezer 2 Box A1",
+          "editedBy": []
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0807",
+          "displayId": { "url": "/7", "value": "inv-GT-plasmid-7" },
+          "plasmid": "GT-plasmids-7: lentiCRISPR v2",
+          "volumeUI": 30,
+          "lengthBP": 14873,
+          "storageLocation": "Freezer 2 Box B1",
+          "editedBy": []
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0808",
+          "displayId": { "url": "/8", "value": "inv-GT-plasmid-8" },
+          "plasmid": "GT-plasmids-8: pAdDeltaF6",
+          "volumeUI": 40,
+          "lengthBP": 15420,
+          "storageLocation": "Freezer 2 Box A3",
+          "editedBy": []
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0809",
+          "displayId": { "url": "/9", "value": "inv-GT-plasmid-9" },
+          "plasmid": "GT-plasmids-9: pMDLg",
+          "volumeUI": 20,
+          "lengthBP": 8890,
+          "storageLocation": "Freezer 2 Box A1",
+          "editedBy": []
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0810",
+          "displayId": { "url": "/10", "value": "inv-GT-plasmid-10" },
+          "plasmid": "GT-plasmids-10: pcDNA-3xHA-hTERT",
+          "volumeUI": 50,
+          "lengthBP": 9027,
+          "storageLocation": "Freezer 2 Box A3",
+          "editedBy": []
+        }
+      ]
+    },
+    {
+      "id": "d290f1ee-6c54-4b01-90e6-d701748f0852",
+      "columns": [
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0911",
+          "accessorKey": "displayId",
+          "type": "link",
+          "label": "ID",
+          "editable": false,
+          "order": 0
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0912",
+          "accessorKey": "summary",
+          "type": "text",
+          "label": "Summary",
+          "editable": true,
+          "order": 1
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0913",
+          "accessorKey": "status",
+          "type": "text",
+          "label": "Status",
+          "editable": false,
+          "order": 2
+        },
+        {
+          "id": "f290f1ee-6c54-4b01-90e6-d701748f0914",
+          "accessorKey": "assignee",
+          "type": "user",
+          "label": "Assignee",
+          "editable": true,
+          "order": 3
+        }
+      ],
+      "rows": [
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0821",
+          "displayId": { "url": "/tasks/KT-1", "value": "KT-1" },
+          "summary": "Add pka formula",
+          "status": "todo",
+          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0822",
+          "displayId": { "url": "/tasks/KT-2", "value": "KT-2" },
+          "summary": "Select option ordering",
+          "status": "todo",
+          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0802"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0823",
+          "displayId": { "url": "/tasks/KT-3", "value": "KT-3" },
+          "summary": "Database filtering v2",
+          "status": "in-progress",
+          "assignee": [
+            "e390f1ee-6c54-4b01-90e6-d701748f0801",
+            "e390f1ee-6c54-4b01-90e6-d701748f0802"
+          ]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0824",
+          "displayId": { "url": "/tasks/KT-4", "value": "KT-4" },
+          "summary": "Colored labels for select",
+          "status": "todo",
+          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0803"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0825",
+          "displayId": { "url": "/tasks/KT-5", "value": "KT-5" },
+          "summary": "Default values for select columns",
+          "status": "todo",
+          "assignee": [
+            "e390f1ee-6c54-4b01-90e6-d701748f0803",
+            "e390f1ee-6c54-4b01-90e6-d701748f0804",
+            "e390f1ee-6c54-4b01-90e6-d701748f0805"
+          ]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0826",
+          "displayId": { "url": "/tasks/KT-6", "value": "KT-6" },
+          "summary": "Improve UI responsiveness",
+          "status": "in-progress",
+          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0804"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0827",
+          "displayId": { "url": "/tasks/KT-7", "value": "KT-7" },
+          "summary": "Update dependencies",
+          "status": "completed",
+          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0807"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0828",
+          "displayId": { "url": "/tasks/KT-8", "value": "KT-8" },
+          "summary": "Refactor authentication flow",
+          "status": "todo",
+          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0808"]
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0829",
+          "displayId": { "url": "/tasks/KT-9", "value": "KT-9" },
+          "summary": "Optimize database queries",
+          "status": "in-progress",
+          "assignee": []
+        },
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0830",
+          "displayId": { "url": "/tasks/KT-10", "value": "KT-10" },
+          "summary": "Test API error handling",
+          "status": "todo",
+          "assignee": []
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0801",
+      "name": "Emma Mitchell",
+      "email": "emma.mitchell@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/women/1.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0802",
+      "name": "James Wilson",
+      "email": "james.wilson@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/1.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0803",
+      "name": "Sophia Anderson",
+      "email": "sophia.anderson@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/women/2.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0804",
+      "name": "Lucas Thomas",
+      "email": "lucas.thomas@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/2.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0805",
+      "name": "Olivia Garcia",
+      "email": "olivia.garcia@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/women/3.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0806",
+      "name": "Benjamin Taylor",
+      "email": "benjamin.taylor@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/3.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0807",
+      "name": "Ava Martinez",
+      "email": "ava.martinez@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/women/4.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0808",
+      "name": "William Johnson",
+      "email": "william.johnson@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/4.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0809",
+      "name": "Mia Robinson",
+      "email": "mia.robinson@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/women/5.jpg"
+    },
+    {
+      "id": "e390f1ee-6c54-4b01-90e6-d701748f0810",
+      "name": "Henry Thompson",
+      "email": "henry.thompson@email.com",
+      "avatarUrl": "https://randomuser.me/api/portraits/men/5.jpg"
+    }
+  ]
+}

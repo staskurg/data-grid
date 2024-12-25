@@ -1,10 +1,17 @@
-import { ACCESSOR_KEYS } from './constants';
-
 export type ColumnType = 'text' | 'number' | 'link' | 'user' | 'tag';
 
-export type CellValue = string | number | Link | User[] | null | undefined;
+export type AccessorKey =
+  | 'displayId'
+  | 'plasmid'
+  | 'volumeUI'
+  | 'lengthBP'
+  | 'storageLocation'
+  | 'editedBy'
+  | 'summary'
+  | 'status'
+  | 'assignee';
 
-export type AccessorKey = (typeof ACCESSOR_KEYS)[keyof typeof ACCESSOR_KEYS];
+export type CellValue = string | number | Link | User[] | null | undefined;
 
 export type User = {
   id: string;
@@ -19,10 +26,12 @@ export type Link = {
 };
 
 export type Column = {
+  id: string;
   accessorKey: AccessorKey;
   type: ColumnType;
   label: string;
   editable: boolean;
+  order: number;
 };
 
 export type Row = {
@@ -32,6 +41,7 @@ export type Row = {
 };
 
 export type TableSchema = {
+  id: string;
   columns: Column[];
   rows: Row[];
 };

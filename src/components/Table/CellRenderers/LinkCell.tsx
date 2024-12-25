@@ -1,6 +1,6 @@
 import { Link } from '@mui/material';
 
-import type { Link as LinkType } from '../../../utils/types';
+import type { Link as LinkType } from '../../../../shared/types';
 
 type LinkCellProps = {
   value: LinkType | null;

@@ -16,7 +16,7 @@ import type {
   Link,
   ColumnType,
   CellValue,
-} from '../../utils/types';
+} from '../../../shared/types';
 
 type TableProps = {
   columns: Column[];
