@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import { useTableData, useUpdateTableData, useUsers } from '../hooks/apiHooks';
+import { useTableData, useUpdateTableData } from '../hooks/apiHooks';
 import { Table } from '../components/Table';
 import { Row } from '../../shared/types';
 
@@ -9,17 +9,18 @@ const Homepage = () => {
   const {
     data: tableData,
     isLoading: isTableDataLoading,
+    isFetching: isFetchingTableData,
     error: tableError,
   } = useTableData(tableId);
-  const {
-    data: usersData,
-    isLoading: isUserDataLoading,
-    error: usersError,
-  } = useUsers();
-  const { mutate: updateRows } = useUpdateTableData(tableId);
+  // const {
+  //   data: usersData,
+  //   isLoading: isUserDataLoading,
+  //   error: usersError,
+  // } = useUsers();
+  const { mutate: updateRows, isPending: isSavingTableData } =
+    useUpdateTableData(tableId);
 
   const handleRowsChange = (newRows: Row[]) => {
-    console.log('handleRowsChange', newRows);
     updateRows(newRows);
   };
 
@@ -33,15 +34,13 @@ const Homepage = () => {
       }}
     >
       <Container maxWidth={false} sx={{ height: '100%', py: 3 }}>
-        {isTableDataLoading && <div>Loading...</div>}
-        {tableError && <div>Error: {tableError.message}</div>}
-        {tableData && (
-          <Table
-            columns={tableData.columns}
-            rows={tableData.rows}
-            onRowsChange={handleRowsChange}
-          />
-        )}
+        <Table
+          tableData={tableData}
+          isLoading={isTableDataLoading}
+          isSaving={isFetchingTableData || isSavingTableData}
+          error={tableError}
+          onRowsChange={handleRowsChange}
+        />
       </Container>
     </Box>
   );

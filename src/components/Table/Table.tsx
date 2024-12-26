@@ -1,78 +1,96 @@
 import { useMemo } from 'react';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
-import {
-  LinkCell,
-  UserCell,
-  NumberCell,
-  TagCell,
-  TextCell,
-} from './CellRenderers';
-import { COLUMN_TYPES } from '../../utils/constants';
+import { getCellRenderer } from './CellRenderers';
+import { getCellEditor } from './CellEditors';
 
-import type {
-  Column,
-  Row,
-  User,
-  Link,
-  ColumnType,
-  CellValue,
-} from '../../../shared/types';
+import type { Row, CellValue, TableSchema } from '../../../shared/types';
 
 type TableProps = {
-  columns: Column[];
-  rows: Row[];
+  tableData: TableSchema | undefined;
+  isLoading: boolean;
+  isSaving: boolean;
+  error: Error | null;
   onRowsChange: (newRows: Row[]) => void;
 };
 
-const renderCell = (
-  type: ColumnType,
-  value: CellValue,
-  columnWidth?: number
-) => {
-  switch (type) {
-    case COLUMN_TYPES.LINK:
-      return <LinkCell value={value as Link} />;
-
-    case COLUMN_TYPES.USER:
-      return <UserCell value={value as User[]} columnWidth={columnWidth} />;
-
-    case COLUMN_TYPES.NUMBER:
-      return <NumberCell value={value as number} />;
-
-    case COLUMN_TYPES.TAG:
-      return <TagCell value={value as string} />;
-
-    default:
-      return <TextCell value={value as string} />;
-  }
-};
-
-const Table = ({ columns, rows }: TableProps) => {
+const Table = ({
+  tableData,
+  isLoading,
+  isSaving,
+  onRowsChange,
+  error,
+}: TableProps) => {
+  const { columns = [], rows = [] } = tableData || {};
   const tableColumns = useMemo<MRT_ColumnDef<Row>[]>(
     () =>
       columns.map(col => ({
         accessorKey: col.accessorKey,
         header: col.label,
-        Cell: ({ column, cell }) => {
-          return renderCell(
-            col.type,
-            cell.getValue() as CellValue,
-            column.getSize()
+        enableEditing: col.editable,
+        Cell: ({ column, cell, table }) => {
+          return getCellRenderer({
+            type: col.type,
+            value: cell.getValue() as CellValue,
+            columnWidth: column.getSize(),
+            isEditable: col.editable,
+            onEditStart: () => table.setEditingCell(cell),
+          });
+        },
+        Edit: ({ column, cell, table }) => {
+          const handleEditComplete = (newValue: CellValue) => {
+            const updatedRows = rows.map(row => {
+              if (row.id === cell.row.original.id) {
+                return { ...row, [column.id]: newValue };
+              }
+              return row;
+            });
+            onRowsChange(updatedRows);
+            table.setEditingCell(null);
+          };
+
+          const handleEditCancel = () => {
+            table.setEditingCell(null);
+          };
+
+          return (
+            <div>
+              {getCellEditor({
+                type: col.type,
+                initialValue: cell.getValue() as CellValue,
+                onComplete: handleEditComplete,
+                onCancel: handleEditCancel,
+              })}
+            </div>
           );
         },
       })),
-    [columns]
+    [columns, onRowsChange, rows]
   );
 
   return (
     <MaterialReactTable
       columns={tableColumns}
       data={rows}
+      enableEditing
+      editDisplayMode="cell"
       enableRowSelection
       enableColumnResizing
       enableSorting
       muiTableContainerProps={{
         sx: { maxHeight: '100%' },
+      }}
+      muiToolbarAlertBannerProps={
+        error
+          ? {
+              color: 'error',
+              children: error.message,
+            }
+          : undefined
+      }
+      state={{
+        isLoading: isLoading,
+        isSaving: isSaving,
+        showAlertBanner: !!error,
       }}
     />
   );

@@ -38,16 +38,59 @@ export const useUsers = () =>
     queryFn: () => fetchWrapper<User[]>('/users'),
   });
 
+/**
+ * Hook for updating table data with optimistic updates
+ * @param tableId - Unique identifier for the table
+ * @returns Mutation object for updating table data
+ */
 export const useUpdateTableData = (tableId: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation<unknown, Error, Row[]>({
+  return useMutation<unknown, Error, Row[], { previousData: TableSchema }>({
+    // Send updated rows to the server
     mutationFn: rows =>
       fetchWrapper(`/table-data/${tableId}`, {
         method: 'POST',
         body: JSON.stringify({ rows }),
       }),
-    onSuccess: () => {
+
+    // Optimistically update UI before server response
+    onMutate: async newRows => {
+      // Cancel any in-flight refetches to avoid overwriting optimistic update
+      await queryClient.cancelQueries({
+        queryKey: QUERY_KEYS.tableData(tableId),
+      });
+
+      // Snapshot current table data for potential rollback
+      const previousData = queryClient.getQueryData<TableSchema>(
+        QUERY_KEYS.tableData(tableId)
+      )!;
+
+      // Update table data immediately in cache
+      queryClient.setQueryData(
+        QUERY_KEYS.tableData(tableId),
+        (old: TableSchema) => ({
+          ...old,
+          rows: newRows,
+        })
+      );
+
+      // Return snapshot for rollback in case of error
+      return { previousData };
+    },
+
+    // Rollback to previous state if mutation fails
+    onError: (err, newRows, context) => {
+      if (context) {
+        queryClient.setQueryData(
+          QUERY_KEYS.tableData(tableId),
+          context.previousData
+        );
+      }
+    },
+
+    // Refetch data after mutation to ensure cache consistency
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.tableData(tableId),
       });
