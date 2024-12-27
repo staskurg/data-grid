@@ -4,10 +4,14 @@ import { TextField } from '@mui/material';
 type TextEditorProps = {
   initialValue: string;
   onComplete: (value: string) => void;
-  onCancel?: () => void;
+  onCancel: () => void;
 };
 
-const TextEditor = ({ initialValue, onComplete }: TextEditorProps) => {
+const TextEditor = ({
+  initialValue,
+  onComplete,
+  onCancel,
+}: TextEditorProps) => {
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,15 +19,23 @@ const TextEditor = ({ initialValue, onComplete }: TextEditorProps) => {
   };
 
   const handleBlur = () => {
-    onComplete(value);
+    if (value !== initialValue) {
+      onComplete(value);
+    } else {
+      onCancel();
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      onComplete(value);
+      if (value !== initialValue) {
+        onComplete(value);
+      } else {
+        onCancel();
+      }
     }
     if (event.key === 'Escape') {
-      onComplete(initialValue);
+      onCancel();
     }
   };
 

@@ -2,8 +2,11 @@ import { sql } from '@vercel/postgres';
 import { User, Row, TableSchema } from '../../shared/types';
 
 export const getUsers = async (): Promise<User[]> => {
-  const { rows } = await sql`SELECT * FROM users`;
-  return rows as User[];
+  const { rows: users } = await sql`SELECT * FROM users`;
+  return users.map(user => ({
+    ...user,
+    avatarUrl: user.avatar_url,
+  })) as User[];
 };
 
 export const getTable = async (

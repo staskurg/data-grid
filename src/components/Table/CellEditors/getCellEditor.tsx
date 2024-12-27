@@ -1,11 +1,8 @@
 import TextEditor from './TextEditor';
-// import { COLUMN_TYPES } from '../../../utils/constants';
+import UserEditor from './UserEditor';
+import { COLUMN_TYPES } from '../../../utils/constants';
 
-import type {
-  CellValue,
-  ColumnType,
-  // User,
-} from '../../../../shared/types';
+import type { CellValue, ColumnType, User } from '../../../../shared/types';
 
 type CellEditorProps = {
   type: ColumnType;
@@ -21,8 +18,14 @@ const getCellEditor = ({
   onCancel,
 }: CellEditorProps) => {
   switch (type) {
-    // case COLUMN_TYPES.USER:
-    //   return <UserEditor initialValue={initialValue} onComplete={onComplete} onCancel={onCancel} />;
+    case COLUMN_TYPES.USER:
+      return (
+        <UserEditor
+          initialValue={initialValue as User[]}
+          onComplete={onComplete}
+          onCancel={onCancel}
+        />
+      );
     default:
       return (
         <TextEditor

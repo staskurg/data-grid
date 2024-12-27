@@ -76,6 +76,8 @@ const Table = ({
       enableRowSelection
       enableColumnResizing
       enableSorting
+      enablePagination={false}
+      enableToolbarInternalActions={false}
       muiTableContainerProps={{
         sx: { maxHeight: '100%' },
       }}
@@ -88,6 +90,7 @@ const Table = ({
           : undefined
       }
       state={{
+        density: 'compact',
         isLoading: isLoading,
         isSaving: isSaving,
         showAlertBanner: !!error,

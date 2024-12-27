@@ -32,10 +32,11 @@ export const useTableData = (tableId: string) =>
     queryFn: () => fetchWrapper<TableSchema>(`/table-data/${tableId}`),
   });
 
-export const useUsers = () =>
+export const useUsers = (options?: { enabled?: boolean }) =>
   useQuery({
     queryKey: QUERY_KEYS.users,
     queryFn: () => fetchWrapper<User[]>('/users'),
+    enabled: options?.enabled,
   });
 
 /**
