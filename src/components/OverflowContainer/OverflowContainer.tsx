@@ -8,7 +8,7 @@ import type { ReactNode } from 'react';
 type OverflowContainerProps<T> = {
   items: T[];
   columnWidth?: number;
-  renderItem: (item: T, ref: (el: HTMLDivElement | null) => void) => ReactNode;
+  renderItem: (item: T) => ReactNode;
 };
 
 const OverflowContainer = <T extends { id: string | number }>({
@@ -16,26 +16,21 @@ const OverflowContainer = <T extends { id: string | number }>({
   columnWidth = 0,
   renderItem,
 }: OverflowContainerProps<T>) => {
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const itemsContainerRef = useRef<HTMLDivElement | null>(null);
   const memoizedItems = useMemo(() => items, [items]);
   const chipRef = useRef<HTMLDivElement>(null);
   const { showTooltip, hideTooltip } = useTooltip();
 
-  const visibleCount = useOverflowWidth(columnWidth, itemRefs, items.length);
-  const remainingCount = items.length - visibleCount;
+  const visibleCount = useOverflowWidth({
+    columnWidth,
+    itemsContainerRef,
+    items: memoizedItems,
+  });
+  const remainingCount = memoizedItems.length - visibleCount;
   const visibleItems = useMemo(
     () => memoizedItems.slice(0, visibleCount),
     [memoizedItems, visibleCount]
   );
-
-  const renderItems = (itemsToRender: T[]) =>
-    itemsToRender.map(item => (
-      <Fragment key={item.id}>
-        {renderItem(item, el => {
-          itemRefs.current.push(el);
-        })}
-      </Fragment>
-    ));
 
   const handleMouseEnter = useCallback(
     (hiddenItems: T[]) => {
@@ -43,7 +38,7 @@ const OverflowContainer = <T extends { id: string | number }>({
         showTooltip(
           <Box display="flex" flexDirection="column" gap={1}>
             {hiddenItems.map(item => (
-              <Fragment key={item.id}>{renderItem(item, () => {})}</Fragment>
+              <Fragment key={item.id}>{renderItem(item)}</Fragment>
             ))}
           </Box>,
           chipRef.current
@@ -59,7 +54,17 @@ const OverflowContainer = <T extends { id: string | number }>({
 
   return (
     <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
-      {renderItems(visibleItems)}
+      <Box
+        ref={itemsContainerRef}
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        gap={1}
+      >
+        {visibleItems.map(item => (
+          <Fragment key={item.id}>{renderItem(item)}</Fragment>
+        ))}
+      </Box>
       {remainingCount > 0 && (
         <Chip
           ref={chipRef}
@@ -70,7 +75,9 @@ const OverflowContainer = <T extends { id: string | number }>({
             borderRadius: '4px',
             backgroundColor: '#f5f5f5',
           }}
-          onMouseEnter={() => handleMouseEnter(items.slice(visibleCount))}
+          onMouseEnter={() =>
+            handleMouseEnter(memoizedItems.slice(visibleCount))
+          }
           onMouseLeave={handleMouseLeave}
         />
       )}

@@ -11,9 +11,7 @@ type UserCellProps = {
 
 const UserCell = ({ value = [], columnWidth = 0 }: UserCellProps) => {
   const renderItem = useCallback(
-    (user: User, ref: (el: HTMLDivElement | null) => void) => (
-      <UserElement user={user} ref={ref} />
-    ),
+    (user: User) => <UserElement user={user} />,
     []
   );
 
