@@ -45,3 +45,20 @@ export type TableSchema = {
   columns: Column[];
   rows: Row[];
 };
+
+type BaseTableUpdate = {
+  rowId: string;
+  columnKey: string;
+};
+
+export type RowUpdate = BaseTableUpdate & {
+  type: 'ROW_UPDATE';
+  value: string | number | Link;
+};
+
+export type UserAssignmentUpdate = BaseTableUpdate & {
+  type: 'USER_ASSIGNMENT';
+  value: User[];
+};
+
+export type TableUpdate = RowUpdate | UserAssignmentUpdate;

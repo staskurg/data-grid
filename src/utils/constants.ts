@@ -1,4 +1,4 @@
-import type { AccessorKey } from '../../shared/types';
+import type { AccessorKey } from 'shared/types';
 
 export const COLUMN_TYPES = {
   LINK: 'link',
@@ -18,4 +18,9 @@ export const ACCESSOR_KEYS: Record<string, AccessorKey> = {
   SUMMARY: 'summary',
   STATUS: 'status',
   ASSIGNEE: 'assignee',
+} as const;
+
+export const TABLE_UPDATE_TYPES = {
+  ROW_UPDATE: 'ROW_UPDATE',
+  USER_ASSIGNMENT: 'USER_ASSIGNMENT',
 } as const;
