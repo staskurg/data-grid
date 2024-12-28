@@ -1,5 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { TableSchema, User, Row } from '../../shared/types';
+
+import type {
+  TableSchema,
+  User,
+  Row,
+  RowUpdate,
+  UserAssignmentUpdate,
+} from 'shared/types';
 
 const API_BASE_URL = '/api/v1';
 
@@ -32,22 +39,111 @@ export const useTableData = (tableId: string) =>
     queryFn: () => fetchWrapper<TableSchema>(`/table-data/${tableId}`),
   });
 
-export const useUsers = () =>
+export const useUsers = (options?: { enabled?: boolean }) =>
   useQuery({
     queryKey: QUERY_KEYS.users,
     queryFn: () => fetchWrapper<User[]>('/users'),
+    enabled: options?.enabled,
   });
 
-export const useUpdateTableData = (tableId: string) => {
+export const useUpdateTableRow = (tableId: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation<unknown, Error, Row[]>({
-    mutationFn: rows =>
-      fetchWrapper(`/table-data/${tableId}`, {
-        method: 'POST',
-        body: JSON.stringify({ rows }),
+  return useMutation<Row, Error, RowUpdate, { previousData: TableSchema }>({
+    mutationFn: ({ rowId, columnKey, value }) =>
+      fetchWrapper(`/table-data/${tableId}/rows/${rowId}`, {
+        method: 'PUT',
+        body: JSON.stringify({ [columnKey]: value }),
       }),
-    onSuccess: () => {
+
+    onMutate: async newUpdate => {
+      await queryClient.cancelQueries({
+        queryKey: QUERY_KEYS.tableData(tableId),
+      });
+      const previousData = queryClient.getQueryData<TableSchema>(
+        QUERY_KEYS.tableData(tableId)
+      )!;
+
+      queryClient.setQueryData(
+        QUERY_KEYS.tableData(tableId),
+        (old: TableSchema) => ({
+          ...old,
+          rows: old.rows.map(row =>
+            row.id === newUpdate.rowId
+              ? { ...row, [newUpdate.columnKey]: newUpdate.value }
+              : row
+          ),
+        })
+      );
+
+      return { previousData };
+    },
+
+    onError: (err, newUpdate, context) => {
+      if (context) {
+        queryClient.setQueryData(
+          QUERY_KEYS.tableData(tableId),
+          context.previousData
+        );
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.tableData(tableId),
+      });
+    },
+  });
+};
+
+export const useUpdateRowUsers = (tableId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    Row,
+    Error,
+    UserAssignmentUpdate,
+    { previousData: TableSchema }
+  >({
+    mutationFn: ({ rowId, columnKey, value }) =>
+      fetchWrapper(`/table-data/${tableId}/rows/${rowId}/users`, {
+        method: 'PUT',
+        body: JSON.stringify({ [columnKey]: value }),
+      }),
+
+    onMutate: async newUpdate => {
+      await queryClient.cancelQueries({
+        queryKey: QUERY_KEYS.tableData(tableId),
+      });
+      const previousData = queryClient.getQueryData<TableSchema>(
+        QUERY_KEYS.tableData(tableId)
+      )!;
+
+      queryClient.setQueryData(
+        QUERY_KEYS.tableData(tableId),
+        (old: TableSchema) => ({
+          ...old,
+          rows: old.rows.map(row =>
+            row.id === newUpdate.rowId
+              ? { ...row, [newUpdate.columnKey]: newUpdate.value }
+              : row
+          ),
+        })
+      );
+
+      return { previousData };
+    },
+
+    onError: (err, newUpdate, context) => {
+      if (context) {
+        queryClient.setQueryData(
+          QUERY_KEYS.tableData(tableId),
+          context.previousData
+        );
+      }
+    },
+
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.tableData(tableId),
       });

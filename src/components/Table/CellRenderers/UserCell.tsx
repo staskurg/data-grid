@@ -1,8 +1,8 @@
 import { memo, useCallback } from 'react';
-import { User } from '../../../../shared/types';
+import UserElement from 'src/ui/UserElement';
+import { OverflowContainer } from 'src/components/OverflowContainer';
 
-import UserElement from '../../../ui/UserElement';
-import { OverflowContainer } from '../../OverflowContainer';
+import type { User } from 'shared/types';
 
 type UserCellProps = {
   value: User[];
@@ -11,9 +11,7 @@ type UserCellProps = {
 
 const UserCell = ({ value = [], columnWidth = 0 }: UserCellProps) => {
   const renderItem = useCallback(
-    (user: User, ref: (el: HTMLDivElement | null) => void) => (
-      <UserElement user={user} ref={ref} />
-    ),
+    (user: User) => <UserElement user={user} />,
     []
   );
 

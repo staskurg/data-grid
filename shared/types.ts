@@ -1,5 +1,16 @@
 export type ColumnType = 'text' | 'number' | 'link' | 'user' | 'tag';
 
+export type AccessorKey =
+  | 'displayId'
+  | 'plasmid'
+  | 'volumeUI'
+  | 'lengthBP'
+  | 'storageLocation'
+  | 'editedBy'
+  | 'summary'
+  | 'status'
+  | 'assignee';
+
 export type CellValue = string | number | Link | User[] | null | undefined;
 
 export type User = {
@@ -15,24 +26,39 @@ export type Link = {
 };
 
 export type Column = {
-  accessorKey: string;
+  id: string;
+  accessorKey: AccessorKey;
   type: ColumnType;
   label: string;
   editable: boolean;
+  order: number;
 };
 
 export type Row = {
-  [key: string]: CellValue;
-  ID?: Link;
-  Plasmid?: string;
-  VolumeUI?: number;
-  LengthBP?: number;
-  StorageLocation?: string;
-  EditedBy?: User[];
-  AssignedTo?: User[];
+  [K in AccessorKey]?: CellValue;
+} & {
+  id: string;
 };
 
 export type TableSchema = {
+  id: string;
   columns: Column[];
   rows: Row[];
 };
+
+type BaseTableUpdate = {
+  rowId: string;
+  columnKey: string;
+};
+
+export type RowUpdate = BaseTableUpdate & {
+  type: 'ROW_UPDATE';
+  value: string | number | Link;
+};
+
+export type UserAssignmentUpdate = BaseTableUpdate & {
+  type: 'USER_ASSIGNMENT';
+  value: User[];
+};
+
+export type TableUpdate = RowUpdate | UserAssignmentUpdate;

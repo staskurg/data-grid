@@ -1,5 +1,3 @@
-import type { AccessorKey } from 'shared/types';
-
 export const COLUMN_TYPES = {
   LINK: 'link',
   USER: 'user',
@@ -8,7 +6,7 @@ export const COLUMN_TYPES = {
   TAG: 'tag',
 } as const;
 
-export const ACCESSOR_KEYS: Record<string, AccessorKey> = {
+export const ACCESSOR_KEYS = {
   DISPLAY_ID: 'displayId',
   PLASMID: 'plasmid',
   VOLUME_UI: 'volumeUI',
@@ -18,9 +16,4 @@ export const ACCESSOR_KEYS: Record<string, AccessorKey> = {
   SUMMARY: 'summary',
   STATUS: 'status',
   ASSIGNEE: 'assignee',
-} as const;
-
-export const TABLE_UPDATE_TYPES = {
-  ROW_UPDATE: 'ROW_UPDATE',
-  USER_ASSIGNMENT: 'USER_ASSIGNMENT',
 } as const;
