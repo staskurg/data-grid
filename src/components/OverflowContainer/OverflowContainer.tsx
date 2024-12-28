@@ -1,7 +1,7 @@
 import { useRef, useMemo, Fragment, memo, useCallback } from 'react';
 import { Box, Chip } from '@mui/material';
-import { useTooltip } from '../../context/TooltipContext';
-import { useOverflowWidth } from '../../hooks/useOverflowWidth';
+import { useTooltip } from 'src/context/TooltipContext';
+import { useOverflowWidth } from 'src/hooks/useOverflowWidth';
 
 import type { ReactNode } from 'react';
 

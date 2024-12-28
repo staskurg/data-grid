@@ -1,8 +1,8 @@
 import { memo, useCallback } from 'react';
-import UserElement from '../../../ui/UserElement';
-import { OverflowContainer } from '../../../components/OverflowContainer';
+import UserElement from 'src/ui/UserElement';
+import { OverflowContainer } from 'src/components/OverflowContainer';
 
-import type { User } from '../../../../shared/types';
+import type { User } from 'shared/types';
 
 type UserCellProps = {
   value: User[];

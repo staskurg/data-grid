@@ -1,8 +1,8 @@
 import TextEditor from './TextEditor';
 import UserEditor from './UserEditor';
-import { COLUMN_TYPES } from '../../../utils/constants';
+import { COLUMN_TYPES } from 'src/utils/constants';
 
-import type { CellValue, ColumnType, User } from '../../../../shared/types';
+import type { CellValue, ColumnType, User } from 'shared/types';
 
 type CellEditorProps = {
   type: ColumnType;

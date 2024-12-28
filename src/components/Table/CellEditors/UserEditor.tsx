@@ -11,11 +11,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import {
   type DropdownCloseReason,
   useDropdown,
-} from '../../../context/DropdownContext';
-import { useUsers } from '../../../hooks/apiHooks';
-import UserElement from '../../../ui/UserElement';
+} from 'src/context/DropdownContext';
+import { useUsers } from 'src/hooks/apiHooks';
+import UserElement from 'src/ui/UserElement';
 
-import type { User } from '../../../../shared/types';
+import type { User } from 'shared/types';
 
 type UserEditorProps = {
   initialValue: User[];

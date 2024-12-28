@@ -3,14 +3,9 @@ import UserCell from './UserCell';
 import NumberCell from './NumberCell';
 import TagCell from './TagCell';
 import TextCell from './TextCell';
-import { COLUMN_TYPES } from '../../../utils/constants';
+import { COLUMN_TYPES } from 'src/utils/constants';
 
-import type {
-  CellValue,
-  ColumnType,
-  Link,
-  User,
-} from '../../../../shared/types';
+import type { CellValue, ColumnType, Link, User } from 'shared/types';
 
 type CellRendererProps = {
   type: ColumnType;
@@ -45,7 +40,11 @@ const getCellRenderer = ({
   return (
     <div
       onClick={isEditable ? onEditStart : undefined}
-      style={{ cursor: isEditable ? 'pointer' : 'default' }}
+      style={{
+        cursor: isEditable ? 'pointer' : 'default',
+        width: '100%',
+        height: '100%',
+      }}
     >
       {content}
     </div>

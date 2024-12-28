@@ -2,22 +2,23 @@ import { useMemo } from 'react';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { getCellRenderer } from './CellRenderers';
 import { getCellEditor } from './CellEditors';
+import createTableUpdate from './utils/createTableUpdate';
 
-import type { Row, CellValue, TableSchema } from '../../../shared/types';
+import type { Row, CellValue, TableSchema, TableUpdate } from 'shared/types';
 
 type TableProps = {
   tableData: TableSchema | undefined;
   isLoading: boolean;
   isSaving: boolean;
   error: Error | null;
-  onRowsChange: (newRows: Row[]) => void;
+  onUpdateTableData: (action: TableUpdate) => void;
 };
 
 const Table = ({
   tableData,
   isLoading,
   isSaving,
-  onRowsChange,
+  onUpdateTableData,
   error,
 }: TableProps) => {
   const { columns = [], rows = [] } = tableData || {};
@@ -36,15 +37,16 @@ const Table = ({
             onEditStart: () => table.setEditingCell(cell),
           });
         },
-        Edit: ({ column, cell, table }) => {
+        Edit: ({ cell, table }) => {
           const handleEditComplete = (newValue: CellValue) => {
-            const updatedRows = rows.map(row => {
-              if (row.id === cell.row.original.id) {
-                return { ...row, [column.id]: newValue };
-              }
-              return row;
-            });
-            onRowsChange(updatedRows);
+            if (!newValue) return;
+            const update = createTableUpdate(
+              cell.row.original.id,
+              col.accessorKey,
+              col.type,
+              newValue
+            );
+            onUpdateTableData(update);
             table.setEditingCell(null);
           };
 
@@ -64,7 +66,7 @@ const Table = ({
           );
         },
       })),
-    [columns, onRowsChange, rows]
+    [columns, onUpdateTableData]
   );
 
   return (
