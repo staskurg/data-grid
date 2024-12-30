@@ -59,8 +59,7 @@
           "plasmid": "GT-plasmids-1: lentiCRISPR v2",
           "volumeUI": 50,
           "lengthBP": 14873,
-          "storageLocation": "Freezer 2 Box A1",
-          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+          "storageLocation": "Freezer 2 Box A1"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0802",
@@ -68,8 +67,7 @@
           "plasmid": "GT-plasmids-2: psPAX2",
           "volumeUI": 30,
           "lengthBP": 10704,
-          "storageLocation": "Freezer 2 Box A2",
-          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+          "storageLocation": "Freezer 2 Box A2"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0803",
@@ -77,8 +75,7 @@
           "plasmid": "GT-plasmids-3: pMD2.G",
           "volumeUI": 40,
           "lengthBP": 5820,
-          "storageLocation": "Freezer 2 Box A2",
-          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+          "storageLocation": "Freezer 2 Box A2"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0804",
@@ -86,8 +83,7 @@
           "plasmid": "GT-plasmids-4: CRISPRoff-v2.1",
           "volumeUI": 25,
           "lengthBP": 11875,
-          "storageLocation": "Freezer 2 Box B1",
-          "editedBy": ["e390f1ee-6c54-4b01-90e6-d701748f0803"]
+          "storageLocation": "Freezer 2 Box B1"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0805",
@@ -95,8 +91,7 @@
           "plasmid": "GT-plasmids-5: TETv4",
           "volumeUI": 35,
           "lengthBP": 11679,
-          "storageLocation": "Freezer 2 Box A2",
-          "editedBy": []
+          "storageLocation": "Freezer 2 Box A2"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0806",
@@ -104,8 +99,7 @@
           "plasmid": "GT-plasmids-6: pRSV-Rev",
           "volumeUI": 45,
           "lengthBP": 4180,
-          "storageLocation": "Freezer 2 Box A1",
-          "editedBy": []
+          "storageLocation": "Freezer 2 Box A1"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0807",
@@ -113,8 +107,7 @@
           "plasmid": "GT-plasmids-7: lentiCRISPR v2",
           "volumeUI": 30,
           "lengthBP": 14873,
-          "storageLocation": "Freezer 2 Box B1",
-          "editedBy": []
+          "storageLocation": "Freezer 2 Box B1"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0808",
@@ -122,8 +115,7 @@
           "plasmid": "GT-plasmids-8: pAdDeltaF6",
           "volumeUI": 40,
           "lengthBP": 15420,
-          "storageLocation": "Freezer 2 Box A3",
-          "editedBy": []
+          "storageLocation": "Freezer 2 Box A3"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0809",
@@ -131,8 +123,7 @@
           "plasmid": "GT-plasmids-9: pMDLg",
           "volumeUI": 20,
           "lengthBP": 8890,
-          "storageLocation": "Freezer 2 Box A1",
-          "editedBy": []
+          "storageLocation": "Freezer 2 Box A1"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0810",
@@ -140,8 +131,7 @@
           "plasmid": "GT-plasmids-10: pcDNA-3xHA-hTERT",
           "volumeUI": 50,
           "lengthBP": 9027,
-          "storageLocation": "Freezer 2 Box A3",
-          "editedBy": []
+          "storageLocation": "Freezer 2 Box A3"
         }
       ]
     },
@@ -186,78 +176,61 @@
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0821",
           "displayId": { "url": "/tasks/KT-1", "value": "KT-1" },
           "summary": "Add pka formula",
-          "status": "todo",
-          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+          "status": "todo"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0822",
           "displayId": { "url": "/tasks/KT-2", "value": "KT-2" },
           "summary": "Select option ordering",
-          "status": "todo",
-          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0802"]
+          "status": "todo"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0823",
           "displayId": { "url": "/tasks/KT-3", "value": "KT-3" },
           "summary": "Database filtering v2",
-          "status": "in-progress",
-          "assignee": [
-            "e390f1ee-6c54-4b01-90e6-d701748f0801",
-            "e390f1ee-6c54-4b01-90e6-d701748f0802"
-          ]
+          "status": "in-progress"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0824",
           "displayId": { "url": "/tasks/KT-4", "value": "KT-4" },
           "summary": "Colored labels for select",
-          "status": "todo",
-          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0803"]
+          "status": "todo"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0825",
           "displayId": { "url": "/tasks/KT-5", "value": "KT-5" },
           "summary": "Default values for select columns",
-          "status": "todo",
-          "assignee": [
-            "e390f1ee-6c54-4b01-90e6-d701748f0803",
-            "e390f1ee-6c54-4b01-90e6-d701748f0804",
-            "e390f1ee-6c54-4b01-90e6-d701748f0805"
-          ]
+          "status": "todo"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0826",
           "displayId": { "url": "/tasks/KT-6", "value": "KT-6" },
           "summary": "Improve UI responsiveness",
-          "status": "in-progress",
-          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0804"]
+          "status": "in-progress"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0827",
           "displayId": { "url": "/tasks/KT-7", "value": "KT-7" },
           "summary": "Update dependencies",
-          "status": "completed",
-          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0807"]
+          "status": "completed"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0828",
           "displayId": { "url": "/tasks/KT-8", "value": "KT-8" },
           "summary": "Refactor authentication flow",
-          "status": "todo",
-          "assignee": ["e390f1ee-6c54-4b01-90e6-d701748f0808"]
+          "status": "todo"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0829",
           "displayId": { "url": "/tasks/KT-9", "value": "KT-9" },
           "summary": "Optimize database queries",
-          "status": "in-progress",
-          "assignee": []
+          "status": "in-progress"
         },
         {
           "id": "d290f1ee-6c54-4b01-90e6-d701748f0830",
           "displayId": { "url": "/tasks/KT-10", "value": "KT-10" },
           "summary": "Test API error handling",
-          "status": "todo",
-          "assignee": []
+          "status": "todo"
         }
       ]
     }
@@ -322,6 +295,75 @@
       "name": "Henry Thompson",
       "email": "henry.thompson@email.com",
       "avatarUrl": "https://randomuser.me/api/portraits/men/5.jpg"
+    }
+  ],
+  "rowUserFields": [
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0801",
+      "columnAccessorKey": "editedBy",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0802",
+      "columnAccessorKey": "editedBy",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0803",
+      "columnAccessorKey": "editedBy",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0804",
+      "columnAccessorKey": "editedBy",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0803"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0821",
+      "columnAccessorKey": "assignee",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0801"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0822",
+      "columnAccessorKey": "assignee",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0802"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0823",
+      "columnAccessorKey": "assignee",
+      "userIds": [
+        "e390f1ee-6c54-4b01-90e6-d701748f0801",
+        "e390f1ee-6c54-4b01-90e6-d701748f0802"
+      ]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0824",
+      "columnAccessorKey": "assignee",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0803"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0825",
+      "columnAccessorKey": "assignee",
+      "userIds": [
+        "e390f1ee-6c54-4b01-90e6-d701748f0803",
+        "e390f1ee-6c54-4b01-90e6-d701748f0804",
+        "e390f1ee-6c54-4b01-90e6-d701748f0805"
+      ]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0826",
+      "columnAccessorKey": "assignee",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0804"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0827",
+      "columnAccessorKey": "assignee",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0807"]
+    },
+    {
+      "rowId": "d290f1ee-6c54-4b01-90e6-d701748f0828",
+      "columnAccessorKey": "assignee",
+      "userIds": ["e390f1ee-6c54-4b01-90e6-d701748f0808"]
     }
   ]
 }

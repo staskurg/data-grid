@@ -12,71 +12,78 @@ export const getUsers = async (): Promise<User[]> => {
 export const getTable = async (
   tableId: string
 ): Promise<TableSchema | null> => {
-  const { rows: tableRows } = await sql`
+  const { rows } = await sql`
+    WITH user_data AS (
+      SELECT 
+        ruf.row_id,
+        ruf.column_accessor_key,
+        jsonb_agg(
+          jsonb_build_object(
+            'id', u.id,
+            'name', u.name,
+            'email', u.email,
+            'avatarUrl', u.avatar_url
+          )
+        ) as users
+      FROM row_user_fields ruf
+      JOIN users u ON ruf.user_id = u.id
+      GROUP BY ruf.row_id, ruf.column_accessor_key
+    ),
+    user_columns AS (
+      SELECT DISTINCT accessor_key
+      FROM columns
+      WHERE table_id = ${tableId}::uuid
+      AND type = 'user'
+    )
     SELECT
-      t.id,
-      c.id as column_id,
-      c.accessor_key,
-      c.type,
-      c.label,
-      c.editable,
-      c."order",
-      r.id as row_id,
-      r.data,
-      json_agg(
-        json_build_object(
-          'id', u.id,
-          'name', u.name,
-          'email', u.email,
-          'avatarUrl', u.avatar_url
+      t.id as table_id,
+      (
+        SELECT jsonb_agg(
+          jsonb_build_object(
+            'id', c2.id,
+            'accessorKey', c2.accessor_key,
+            'type', c2.type,
+            'label', c2.label,
+            'editable', c2.editable,
+            'order', c2."order"
+          )
         )
-      ) FILTER (WHERE u.id IS NOT NULL) as users
+        FROM (
+          SELECT DISTINCT ON (c2.id) c2.*
+          FROM columns c2
+          WHERE c2.table_id = t.id
+          ORDER BY c2.id, c2."order"
+        ) c2
+      ) as columns,
+      jsonb_agg(DISTINCT
+        jsonb_build_object(
+          'id', r.id,
+          'data', r.data || (
+            SELECT jsonb_object_agg(
+              uc.accessor_key,
+              COALESCE(
+                (SELECT users FROM user_data ud WHERE ud.row_id = r.id AND ud.column_accessor_key = uc.accessor_key),
+                '[]'::jsonb
+              )
+            )
+            FROM user_columns uc
+          )
+        )
+      ) as rows
     FROM tables t
-    LEFT JOIN columns c ON t.id = c.table_id
-    LEFT JOIN table_rows r ON t.id = r.table_id
-    LEFT JOIN row_user_fields ruf ON r.id = ruf.row_id
-    LEFT JOIN users u ON ruf.user_id = u.id
+    JOIN columns c ON t.id = c.table_id
+    JOIN table_rows r ON t.id = r.table_id
     WHERE t.id = ${tableId}::uuid
-    GROUP BY t.id, c.id, r.id, r.data
+    GROUP BY t.id
   `;
 
-  if (!tableRows.length) return null;
+  if (!rows.length) return null;
 
-  const columns = tableRows
-    .filter(
-      (row, index, self) =>
-        index === self.findIndex(r => r.column_id === row.column_id)
-    )
-    .map(row => ({
-      id: row.column_id,
-      accessorKey: row.accessor_key,
-      type: row.type,
-      label: row.label,
-      editable: row.editable,
-      order: row.order,
-    }));
-
-  const rows = tableRows
-    .filter(
-      (row, index, self) =>
-        index === self.findIndex(r => r.row_id === row.row_id)
-    )
-    .map(row => {
-      const data = { ...row.data };
-      if (row.users) {
-        columns.forEach(col => {
-          if (col.type === 'user' && data[col.accessorKey]) {
-            data[col.accessorKey] = row.users;
-          }
-        });
-      }
-      return data;
-    });
-
+  const result = rows[0];
   return {
-    id: tableId,
-    columns,
-    rows,
+    id: result.table_id,
+    columns: result.columns,
+    rows: result.rows.map((row: { id: string; data: Row }) => row.data),
   };
 };
 
@@ -86,8 +93,9 @@ export const updateTableRow = async (
   columnKey: string,
   value: string | number | Link
 ): Promise<Row | null> => {
+  // First verify column exists and is editable
   const { rows: columns } = await sql`
-    SELECT editable, accessor_key FROM columns 
+    SELECT type, editable FROM columns 
     WHERE table_id = ${tableId}::uuid 
     AND accessor_key = ${columnKey}
   `;
@@ -96,6 +104,19 @@ export const updateTableRow = async (
     throw new Error('Column is not editable');
   }
 
+  // Validate value type matches column type
+  const columnType = columns[0].type;
+  if (columnType === 'number' && typeof value !== 'number') {
+    throw new Error('Invalid value type for number column');
+  }
+  if (columnType === 'link' && typeof value === 'object') {
+    const linkValue = value as Link;
+    if (!linkValue.url || !linkValue.value) {
+      throw new Error('Invalid link structure');
+    }
+  }
+
+  // Update the row with new value
   await sql`
     UPDATE table_rows 
     SET data = jsonb_set(
@@ -107,6 +128,7 @@ export const updateTableRow = async (
     AND table_id = ${tableId}::uuid
   `;
 
+  // Return updated row data
   const { rows } = await sql`
     SELECT data FROM table_rows 
     WHERE id = ${rowId}::uuid 
@@ -125,7 +147,7 @@ export const updateRowUsers = async (
   await sql`BEGIN`;
 
   try {
-    // Verify column exists, is of type 'user', and is editable
+    // Validate column type and editability
     const { rows: columns } = await sql`
       SELECT type, editable FROM columns 
       WHERE table_id = ${tableId}::uuid 
@@ -140,58 +162,51 @@ export const updateRowUsers = async (
       throw new Error('Column is not editable');
     }
 
-    // Remove existing user assignments
+    // Remove existing assignments
     await sql`
       DELETE FROM row_user_fields 
       WHERE row_id = ${rowId}::uuid 
       AND column_accessor_key = ${columnKey}
     `;
 
-    // Insert new user assignments
+    // Add new assignments
     if (userIds.length > 0) {
-      const values = userIds.map(userId => ({
-        row_id: rowId,
-        column_accessor_key: columnKey,
-        user_id: userId,
-      }));
-
-      await sql`
-        INSERT INTO row_user_fields (row_id, column_accessor_key, user_id)
-        SELECT row_id::uuid, column_accessor_key, user_id::uuid
-        FROM json_to_recordset(${JSON.stringify(values)})
-        AS t(row_id text, column_accessor_key text, user_id text)
-      `;
+      for (const userId of userIds) {
+        await sql`
+          INSERT INTO row_user_fields (row_id, column_accessor_key, user_id)
+          VALUES (${rowId}::uuid, ${columnKey}, ${userId}::uuid)
+        `;
+      }
     }
+
+    // Get updated row data with user information
+    const { rows } = await sql`
+    SELECT 
+      r.data || ('{"' || ${columnKey} || '":' || 
+        COALESCE(
+          (
+            SELECT to_json(array_agg(
+              json_build_object(
+                'id', u.id,
+                'name', u.name,
+                'email', u.email,
+                'avatarUrl', u.avatar_url
+              )
+            ))::text
+            FROM row_user_fields ruf
+            JOIN users u ON ruf.user_id = u.id
+            WHERE ruf.row_id = r.id
+            AND ruf.column_accessor_key = ${columnKey}
+          ),
+          '[]'
+        ) || '}')::jsonb as data
+    FROM table_rows r
+    WHERE r.id = ${rowId}::uuid 
+    AND r.table_id = ${tableId}::uuid
+  `;
 
     await sql`COMMIT`;
-
-    // Return updated row data with user information
-    const { rows } = await sql`
-      SELECT 
-        r.data,
-        json_agg(
-          DISTINCT jsonb_build_object(
-            'id', u.id,
-            'name', u.name,
-            'email', u.email,
-            'avatarUrl', u.avatar_url
-          )
-        ) FILTER (WHERE u.id IS NOT NULL) as users
-      FROM table_rows r
-      LEFT JOIN row_user_fields ruf ON r.id = ruf.row_id AND ruf.column_accessor_key = ${columnKey}
-      LEFT JOIN users u ON ruf.user_id = u.id
-      WHERE r.id = ${rowId}::uuid AND r.table_id = ${tableId}::uuid
-      GROUP BY r.id, r.data
-    `;
-
-    if (!rows[0]) return null;
-
-    const updatedRow = { ...rows[0].data };
-    if (rows[0].users) {
-      updatedRow[columnKey] = rows[0].users;
-    }
-
-    return updatedRow;
+    return rows[0]?.data || null;
   } catch (error) {
     await sql`ROLLBACK`;
     throw error;
