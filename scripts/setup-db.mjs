@@ -150,24 +150,22 @@ async function seedData() {
       `;
     }
 
-    // Insert rows and user relationships
+    // Insert rows
     for (const row of table.rows) {
       await sql`
         INSERT INTO table_rows (id, table_id, data)
         VALUES (${row.id}::uuid, ${table.id}::uuid, ${JSON.stringify(row)}::jsonb)
       `;
+    }
+  }
 
-      // Insert user relationships
-      for (const column of table.columns) {
-        if (column.type === 'user' && row[column.accessorKey]) {
-          for (const userId of row[column.accessorKey]) {
-            await sql`
-              INSERT INTO row_user_fields (row_id, column_accessor_key, user_id)
-              VALUES (${row.id}::uuid, ${column.accessorKey}, ${userId}::uuid)
-            `;
-          }
-        }
-      }
+  // Insert user relationships from rowUserFields
+  for (const userField of data.rowUserFields) {
+    for (const userId of userField.userIds) {
+      await sql`
+        INSERT INTO row_user_fields (row_id, column_accessor_key, user_id)
+        VALUES (${userField.rowId}::uuid, ${userField.columnAccessorKey}, ${userId}::uuid)
+      `;
     }
   }
 }

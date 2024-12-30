@@ -31,6 +31,10 @@ const OverflowContainer = <T extends { id: string | number }>({
     () => memoizedItems.slice(0, visibleCount),
     [memoizedItems, visibleCount]
   );
+  const hiddenItems = useMemo(
+    () => memoizedItems.slice(visibleCount),
+    [memoizedItems, visibleCount]
+  );
 
   const handleMouseEnter = useCallback(
     (hiddenItems: T[]) => {
@@ -75,9 +79,7 @@ const OverflowContainer = <T extends { id: string | number }>({
             borderRadius: '4px',
             backgroundColor: '#f5f5f5',
           }}
-          onMouseEnter={() =>
-            handleMouseEnter(memoizedItems.slice(visibleCount))
-          }
+          onMouseEnter={() => handleMouseEnter(hiddenItems)}
           onMouseLeave={handleMouseLeave}
         />
       )}

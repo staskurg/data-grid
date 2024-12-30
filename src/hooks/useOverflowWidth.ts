@@ -62,5 +62,6 @@ export const useOverflowWidth = <T>({
     return visibleCount;
   }, [columnWidth, itemWidths, items]);
 
+  // console.log({ visibleElements, columnWidth, items, itemWidths });
   return visibleElements;
 };
